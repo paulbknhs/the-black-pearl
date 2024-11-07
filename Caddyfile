@@ -1,0 +1,23 @@
+jellyfin.the-black-pearl.de {
+	reverse_proxy jellyfin:8096
+}
+
+qbt.the-black-pearl.de {
+	reverse_proxy qbittorrent:8080
+}
+
+sonarr.the-black-pearl.de {
+	reverse_proxy sonarr:8989
+}
+
+radarr.the-black-pearl.de {
+	reverse_proxy radarr:7878
+}
+
+prowlarr.the-black-pearl.de {
+	reverse_proxy prowlarr:9696
+}
+
+jellyseerr.the-black-pearl.de {
+	reverse_proxy jellyseerr:5055
+}

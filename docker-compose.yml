@@ -1,0 +1,103 @@
+services:
+  caddy:
+    image: caddy
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - TZ=Europe/Berlin
+    volumes:
+      - "~/media/movies:/movies"
+      - "~/media/tvshows:/tvshows"
+      - "~/media/config/jellyfin:/config"
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=0
+      - TZ=Europe/Berlin
+      - WEBUI_PORT=8080
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    volumes:
+      - "~/media/downloads:/downloads"
+      - "~/media/config/qbittorrent:/config"
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=0
+      - TZ=Europe/Berlin
+    ports:
+      - "8989:8989"
+    volumes:
+      - "~/media/tvshows:/tvshows"
+      - "~/media/downloads:/downloads"
+      - "~/media/config/sonarr:/config"
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=0
+      - TZ=Europe/Berlin
+    ports:
+      - "7878:7878"
+    volumes:
+      - "~/media/movies:/movies"
+      - "~/media/downloads:/downloads"
+      - "~/media/config/radarr:/config"
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=0
+      - TZ=Europe/Berlin
+    ports:
+      - "9696:9696"
+    volumes:
+      - "~/media/config/prowlarr:/config"
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr
+    container_name: jellyseerr
+    environment:
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=0
+      - JELLYFIN_URL=https://jellyfin.the-black-pearl.de/
+      - JELLYFIN_API_KEY=<DEIN_JELLYFIN_API_KEY>  # Ersetze dies durch deinen API-Schlüssel
+    ports:
+      - "5055:5055"
+    volumes:
+      - "~/media/config/jellyseerr:/app/config"
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
+
