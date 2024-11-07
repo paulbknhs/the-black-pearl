@@ -90,11 +90,25 @@ services:
       - PUID=1000
       - PGID=0
       - JELLYFIN_URL=https://jellyfin.the-black-pearl.de/
-      - JELLYFIN_API_KEY=<DEIN_JELLYFIN_API_KEY>  # Ersetze dies durch deinen API-Schlüssel
+      - JELLYFIN_API_KEY=1edd19d7cf1343ac95356663d445eda5
     ports:
       - "5055:5055"
     volumes:
       - "~/media/config/jellyseerr:/app/config"
+    restart: unless-stopped
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=0
+    ports:
+      - "8191:8191"
     restart: unless-stopped
 
 volumes:
