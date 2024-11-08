@@ -18,6 +18,10 @@ prowlarr.the-black-pearl.de {
 	reverse_proxy prowlarr:9696
 }
 
+proxy.the-black-pearl.de {
+	reverse_proxy flaresolverr:8191
+}
+
 request.the-black-pearl.de {
 	reverse_proxy jellyseerr:5055
 }

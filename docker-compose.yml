@@ -17,9 +17,9 @@ services:
     environment:
       - TZ=Europe/Berlin
     volumes:
-      - "~/media/movies:/movies"
-      - "~/media/tvshows:/tvshows"
-      - "~/media/config/jellyfin:/config"
+      - "~/media/movies:/media/movies"
+      - "~/media/tvshows:/media/tvshows"
+      - "~/media/config/jellyfin:/media/config"
     restart: unless-stopped
 
   qbittorrent:
@@ -35,8 +35,8 @@ services:
       - "6881:6881"
       - "6881:6881/udp"
     volumes:
-      - "~/media/downloads:/downloads"
-      - "~/media/config/qbittorrent:/config"
+      - "~/media/downloads:/media/downloads"
+      - "~/media/config/qbittorrent:/media/config"
     restart: unless-stopped
 
   sonarr:
@@ -49,9 +49,9 @@ services:
     ports:
       - "8989:8989"
     volumes:
-      - "~/media/tvshows:/tvshows"
-      - "~/media/downloads:/downloads"
-      - "~/media/config/sonarr:/config"
+      - "~/media/tvshows:/media/tvshows"
+      - "~/media/downloads:/media/downloads"
+      - "~/media/config/sonarr:/media/config"
     restart: unless-stopped
 
   radarr:
@@ -64,9 +64,9 @@ services:
     ports:
       - "7878:7878"
     volumes:
-      - "~/media/movies:/movies"
-      - "~/media/downloads:/downloads"
-      - "~/media/config/radarr:/config"
+      - "~/media/movies:/media/movies"
+      - "~/media/downloads:/media/downloads"
+      - "~/media/config/radarr:/media/config"
     restart: unless-stopped
 
   prowlarr:
@@ -79,7 +79,7 @@ services:
     ports:
       - "9696:9696"
     volumes:
-      - "~/media/config/prowlarr:/config"
+      - "~/media/config/prowlarr:/media/config"
     restart: unless-stopped
 
   jellyseerr:
