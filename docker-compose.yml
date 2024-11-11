@@ -1,4 +1,8 @@
 services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   caddy:
     image: caddy
     container_name: caddy
@@ -17,9 +21,9 @@ services:
     environment:
       - TZ=Europe/Berlin
     volumes:
-      - "~/media/movies:/media/movies"
-      - "~/media/tvshows:/media/tvshows"
-      - "~/media/config/jellyfin:/media/config"
+      - "~/mnt/movies:/media/movies"
+      - "~/mnt/tvshows:/media/tvshows"
+      - "~/mnt/config/jellyfin:/media/config"
     restart: unless-stopped
 
   qbittorrent:
@@ -35,8 +39,8 @@ services:
       - "6881:6881"
       - "6881:6881/udp"
     volumes:
-      - "~/media/downloads:/media/downloads"
-      - "~/media/config/qbittorrent:/media/config"
+      - "~/mnt/downloads:/media/downloads"
+      - "~/mnt/config/qbittorrent:/media/config"
     restart: unless-stopped
 
   sonarr:
@@ -49,9 +53,9 @@ services:
     ports:
       - "8989:8989"
     volumes:
-      - "~/media/tvshows:/media/tvshows"
-      - "~/media/downloads:/media/downloads"
-      - "~/media/config/sonarr:/media/config"
+      - "~/mnt/tvshows:/media/tvshows"
+      - "~/mnt/downloads:/media/downloads"
+      - "~/mnt/config/sonarr:/media/config"
     restart: unless-stopped
 
   radarr:
@@ -64,9 +68,9 @@ services:
     ports:
       - "7878:7878"
     volumes:
-      - "~/media/movies:/media/movies"
-      - "~/media/downloads:/media/downloads"
-      - "~/media/config/radarr:/media/config"
+      - "~/mnt/movies:/media/movies"
+      - "~/mnt/downloads:/media/downloads"
+      - "~/mnt/config/radarr:/media/config"
     restart: unless-stopped
 
   prowlarr:
@@ -79,7 +83,7 @@ services:
     ports:
       - "9696:9696"
     volumes:
-      - "~/media/config/prowlarr:/media/config"
+      - "~/mnt/config/prowlarr:/media/config"
     restart: unless-stopped
 
   jellyseerr:
@@ -94,7 +98,7 @@ services:
     ports:
       - "5055:5055"
     volumes:
-      - "~/media/config/jellyseerr:/app/config"
+      - "~/mnt/config/jellyseerr:/app/config"
     restart: unless-stopped
 
   flaresolverr:
