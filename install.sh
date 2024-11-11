@@ -1,23 +1,9 @@
 #!/usr/bin/env bash
 
-# Determine OS platform
-UNAME=$(uname | tr "[:upper:]" "[:lower:]")
-# If Linux, try to determine specific distribution
-if [ "$UNAME" == "linux" ]; then
-    # If available, use LSB to identify distribution
-    if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
-        export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
-    # Otherwise, use release info file
-    else
-        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
-    fi
-fi
-# For everything else (or if above failed), just use generic identifier
-[ "$DISTRO" == "" ] && export DISTRO=$UNAME
-unset UNAME
-
-
 # TODO: create user and dir structure and ensure docker compose permissions
+sudo mkdir -p /docker/{conf, volumes, bin, scripts, local, mnt}
 
-
-# TODO: automount bucket
+# TODO: automount bucket mounting
+echo "setting permissions to ensure rw access for all containers"
+sudo chown -R root:root /docker
+sudo chmod -R 775 /docker
