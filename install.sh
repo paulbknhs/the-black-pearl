@@ -16,4 +16,8 @@ fi
 [ "$DISTRO" == "" ] && export DISTRO=$UNAME
 unset UNAME
 
+
 # TODO: create user and dir structure and ensure docker compose permissions
+
+
+# TODO: automount bucket
